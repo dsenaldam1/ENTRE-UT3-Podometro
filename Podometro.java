@@ -67,7 +67,7 @@ public class Podometro {
             
         }
         else if (queSexo == MUJER){
-            longitudZancada = Math.floor(ZANCADA_MUJER * (altura))*1;
+            longitudZancada = Math.floor(ZANCADA_MUJER * (altura));
             
         }
     }
