@@ -86,31 +86,36 @@ public class Podometro {
      *   (leer enunciado del ejercicio)
      */
     public void registrarCaminata(int pasos, int dia, int horaInicio, int horaFin) {
-        tiempo =  horaFin - horaInicio;
+        int tiempoTotal =  (horaFin - horaInicio);
         switch(dia){
             case 1: totalPasosLaborables += pasos;
+                   tiempo += tiempoTotal; 
                 break;
             case 2: totalPasosLaborables += pasos;
+                    tiempo += tiempoTotal;
                 break;
             case 3: totalPasosLaborables += pasos;
+                    tiempo += tiempoTotal;
                 break;
             case 4: totalPasosLaborables += pasos;
+                    tiempo += tiempoTotal;
                 break;
             case 5: totalPasosLaborables += pasos;
+                   tiempo += tiempoTotal;
                 break;
             case SABADO: totalPasosSabado += pasos;
+                  tiempo += tiempoTotal;
                 break;
             case DOMINGO: totalPasosDomingo += pasos;
+                  tiempo += tiempoTotal;
                 break;
         }  
-
+        
+        totalDistanciaSemana = ((totalPasosLaborables + totalPasosSabado + totalPasosDomingo) * longitudZancada)/100000;
+        totalDistanciaFinSemana = ((totalPasosSabado + totalPasosDomingo) * longitudZancada)/100000;
         if(horaInicio >= 2100){
             caminatasNoche++;
         }
-        tiempo += tiempo;
-        totalDistanciaSemana = ((totalPasosLaborables + totalPasosSabado + totalPasosDomingo) * longitudZancada)/100000;
-        totalDistanciaFinSemana = ((totalPasosSabado + totalPasosDomingo) * longitudZancada)/100000;
-        
     }
 
     /**
@@ -143,6 +148,12 @@ public class Podometro {
      *  
      */
     public void printEstadísticas() {
+        int tiempoPartidoHora = tiempo / 120;
+        int tiempoPartidoMin = tiempo % 120;
+        if (tiempoPartidoMin > 60){
+            tiempoPartidoMin -= 60;
+            tiempoPartidoHora ++;
+        }
         System.out.println("Estadísticas");
         System.out.println("***************************");
         System.out.println("Distancia recorrida toda la semana: " + totalDistanciaSemana + "km" );
@@ -154,7 +165,7 @@ public class Podometro {
         System.out.println();
         System.out.println("Nº caminatas realizadas a partir de las 21h: " + caminatasNoche);
         System.out.println();
-        System.out.println("Tiempo total caminado en la semana: " + tiempo);
+        System.out.println("Tiempo total caminado en la semana: " + tiempoPartidoHora + "h. y " + tiempoPartidoMin + "m.");
         //System.out.println("Día/s con más pasos caminados: " + diaMayorNumeroPasos());
     }
 
